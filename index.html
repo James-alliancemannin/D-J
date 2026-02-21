@@ -1,218 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COMPANY — Elite Cross-Border Intelligence</title>
-  <style>
-    :root {
-      --bg: #0a0a0a;
-      --text: #e8e8e8;
-      --accent: #a81c1c;
-      --glass: rgba(255,255,255,0.06);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      font-family: 'Helvetica Neue', system-ui, sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
-      line-height: 1.8; 
-      overflow-x: hidden;
-    }
-    header {
-      height: 100vh;
-      background: linear-gradient(rgba(10,10,10,0.75), rgba(10,10,10,0.85)), url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80') center/cover fixed;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-    }
-    .logo { max-width: 260px; margin-bottom: 40px; filter: drop-shadow(0 0 30px rgba(168,28,28,0.5)); }
-    h1 { font-size: 5.8rem; font-weight: 900; letter-spacing: -4px; margin-bottom: 20px; }
-    .hero-subtitle { font-size: 2rem; max-width: 900px; opacity: 0.95; margin-bottom: 50px; }
-    .cta-btn {
-      background: transparent;
-      border: 3px solid var(--accent);
-      color: white;
-      padding: 18px 60px;
-      font-size: 1.4rem;
-      font-weight: 600;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.5s ease;
-    }
-    .cta-btn:hover {
-      background: var(--accent);
-      transform: scale(1.08);
-      box-shadow: 0 0 40px rgba(168,28,28,0.6);
-    }
+<script>
+// Year in footer
+document.getElementById("year").textContent = new Date().getFullYear();
 
-    .section { padding: 120px 40px; max-width: 1300px; margin: 0 auto; }
-    h2 { font-size: 3.2rem; text-align: center; margin-bottom: 60px; color: white; }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .founder {
-      background: var(--glass);
-      padding: 40px;
-      border-radius: 16px;
-      border: 1px solid rgba(168,28,28,0.3);
-      backdrop-filter: blur(12px);
-    }
-    .icon { font-size: 3.5rem; margin-bottom: 20px; display: block; }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 60px;
-    }
-    .service-card {
-      background: var(--glass);
-      padding: 40px 30px;
-      border-radius: 16px;
-      text-align: center;
-      transition: all 0.4s ease;
-      border: 1px solid rgba(168,28,28,0.2);
-    }
-    .service-card:hover {
-      transform: translateY(-15px);
-      border-color: var(--accent);
-    }
-    .modal {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-      display: none; align-items: center; justify-content: center; z-index: 10000;
-    }
-    .modal-content {
-      background: #111;
-      border: 1px solid var(--accent);
-      border-radius: 20px;
-      padding: 60px 50px;
-      max-width: 620px;
-      width: 90%;
-      animation: modalPop 0.6s ease;
-    }
-    @keyframes modalPop { from { opacity:0; transform:scale(0.85); } to { opacity:1; transform:scale(1); } }
-    input, textarea {
-      width: 100%; padding: 16px; margin: 12px 0;
-      background: #1a1a1a; border: 1px solid #444; border-radius: 10px;
-      color: white; font-size: 1.1rem;
-    }
-    button { width: 100%; padding: 18px; background: var(--accent); border: none; border-radius: 10px; font-size: 1.3rem; cursor: pointer; }
-    footer { background: #000; padding: 80px 20px; text-align: center; font-size: 1rem; }
-  </style>
-</head>
-<body>
+// Sticky header shrink
+const topbar = document.getElementById("topbar");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 14) topbar.classList.add("shrink");
+  else topbar.classList.remove("shrink");
+});
 
-  <!-- HERO LANDING -->
-  <header>
-    <img src="https://via.placeholder.com/260x100/111/fff?text=COMPANY+LOGO" alt="COMPANY Logo" class="logo">
-    <h1>COMPANY</h1>
-    <p class="hero-subtitle">Elite cross-border intelligence. Forensic precision. Absolute discretion.</p>
-    <button class="cta-btn" onclick="document.getElementById('aboutSection').scrollIntoView({behavior:'smooth'})">
-      Discover Who We Are
-    </button>
-  </header>
+// Character-by-character typing (smooth & natural)
+function typeMessage(text, isBot = true, callback = null) {
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${isBot ? 'bot' : 'user'}`;
+  document.getElementById('chatContainer').appendChild(bubble);
+  document.getElementById('chatContainer').scrollTop = 999999;
 
-  <!-- ABOUT THE COMPANY & DIRECTORS -->
-  <div id="aboutSection" class="section">
-    <h2>About COMPANY</h2>
-    <div class="about-grid">
-      <div>
-        <p style="font-size:1.25rem; max-width:520px;">
-          Founded by senior legal professionals and members of Mensa, COMPANY was created to deliver the highest standard of remote forensic investigations across Europe and beyond. 
-          We do not conduct physical surveillance or "boots-on-the-ground" operations. Instead, we provide sophisticated, intelligence-led insights using the latest digital forensic techniques, cross-border data analysis, and advanced open-source intelligence.
-        </p>
-        <p style="margin-top:30px; font-size:1.25rem;">
-          Our multilingual team (English, German, French, Hungarian, Russian) enables seamless investigations across jurisdictions with full legal compliance and complete confidentiality.
-        </p>
-      </div>
-      <div>
-        <div class="founder">
-          <span class="icon">⚖️</span>
-          <h3>Founding Directors</h3>
-          <p><strong>Law-qualified professionals</strong> with decades of combined experience in complex international disputes and high-stakes investigations.</p>
-          <p><strong>Mensa members</strong> — selected for exceptional analytical intelligence and strategic thinking.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  let i = 0;
+  const interval = setInterval(() => {
+    bubble.textContent = text.substring(0, i) + (i < text.length ? '|' : '');
+    i++;
+    if (i > text.length) {
+      clearInterval(interval);
+      bubble.textContent = text;
+      bubble.classList.add('visible');
+      if (callback) setTimeout(callback, 500);
+    }
+  }, 28 + Math.random() * 42); // 28–70 ms per character
+}
 
-  <!-- SERVICES -->
-  <div class="section" style="background:#111;">
-    <h2>Our Specialisms</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <span class="icon">🔍</span>
-        <h3>Advanced Background & Due Diligence</h3>
-        <p>Deep forensic checks on individuals and companies across multiple jurisdictions.</p>
-      </div>
-      <div class="service-card">
-        <span class="icon">🌐</span>
-        <h3>Cross-Border Intelligence</h3>
-        <p>Seamless investigations spanning Europe and beyond, supported by our multilingual team.</p>
-      </div>
-      <div class="service-card">
-        <span class="icon">🔒</span>
-        <h3>Digital Forensics & Cyber Investigations</h3>
-        <p>Full-spectrum cyber intelligence, dark web monitoring, and secure data recovery.</p>
-      </div>
-      <div class="service-card">
-        <span class="icon">❤️</span>
-        <h3>Spousal & Relationship Dynamics</h3>
-        <p>Discreet handling of complex marital, cohabitation, and high-net-worth separation matters.</p>
-      </div>
-      <div class="service-card">
-        <span class="icon">📍</span>
-        <h3>Missing Persons & Locate</h3>
-        <p>Advanced digital tracing and international locate services.</p>
-      </div>
-      <div class="service-card">
-        <span class="icon">🏛️</span>
-        <h3>Corporate Disputes & Asset Tracing</h3>
-        <p>Fraud detection, competitor intelligence, and hidden asset recovery.</p>
-      </div>
-    </div>
-  </div>
+// 10 varied error responses for rubbish/invalid input
+const errorResponses = [
+  "Sorry, that doesn't look right — could you try again?",
+  "I didn't catch that. Please type a valid response.",
+  "Hmm, that doesn't seem correct. Let's try once more?",
+  "I'm sorry, I need a proper answer to continue.",
+  "That doesn't look like what I'm expecting — could you rephrase?",
+  "Oops, that wasn't quite right. Please try again.",
+  "I think there might be a typo — could you enter that again?",
+  "Sorry, I didn't understand. Let's try that step again.",
+  "That doesn't seem valid. Please provide a clear answer.",
+  "Not quite — could you give me the correct information?"
+];
 
-  <!-- CONTACT MODAL TRIGGER -->
-  <div style="text-align:center; padding:80px 20px; background:#0a0a0a;">
-    <button class="cta-btn" onclick="openModal()" style="font-size:1.6rem; padding:22px 70px;">
-      Begin Your Confidential Consultation
-    </button>
-  </div>
+// Main questions + phone step
+const questions = [
+  { q: "We invite you to give us more information here, so we may help with your confidential enquiry.\n\nWhat is your full name and title?", field: "name" },
+  { q: "Thank you, {name}. What is the best email address to reach you?", field: "email" },
+  { q: "Understood. Could you tell me the main jurisdiction this matter relates to?", field: "jurisdiction" },
+  { q: "Perfect. In a few sentences, please outline what you need help with (urgency, concerns, etc.).", field: "summary" },
+  {
+    q: "If you'd prefer to be contacted by phone, please tell us the best number. Otherwise, just say 'no', 'email only', or leave it blank.",
+    field: "phone"
+  }
+];
 
-  <!-- DYNAMIC MODAL FORM -->
-  <div class="modal" id="contactModal">
-    <div class="modal-content">
-      <span onclick="closeModal()" style="float:right; font-size:2.5rem; cursor:pointer; color:#a81c1c;">&times;</span>
-      <h2 style="text-align:center; margin-bottom:30px;">Confidential Inquiry</h2>
-      <form action="https://formspree.io/f/your-real-id" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="tel" name="phone" placeholder="Phone (optional)">
-        <textarea name="message" rows="7" placeholder="Please describe your situation (background check, spousal matter, corporate issue, locate request, etc.)..." required></textarea>
-        <button type="submit">Send Secure Message</button>
-      </form>
-      <p style="text-align:center; margin-top:30px;">
-        Or call us directly: <strong>+44 76924 488097</strong><br>
-        <small>We respond within 24 hours — complete confidentiality guaranteed.</small>
-      </p>
-    </div>
-  </div>
+let step = 0;
+let formData = {};
 
-  <footer>
-    <p>© 2026 COMPANY • Elite Cross-Border Private Intelligence</p>
-    <p>Offices: France • London • Isle of Man • Hungary</p>
-  </footer>
+function addUserMessage(text) {
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble user';
+  bubble.textContent = text;
+  document.getElementById('chatContainer').appendChild(bubble);
+  document.getElementById('chatContainer').scrollTop = 999999;
+  bubble.classList.add('visible');
+}
 
-  <script>
-    function openModal() { document.getElementById('contactModal').style.display = 'flex'; }
-    function closeModal() { document.getElementById('contactModal').style.display = 'none'; }
-  </script>
-</body>
-</html>
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+}
+
+function nextQuestion() {
+  if (step >= questions.length) {
+    typeMessage("Thank you. Your message has been encrypted for your security and we will get back to you shortly.", true, () => {
+      document.getElementById('inputArea').style.display = 'none';
+      document.getElementById('nextBtn').style.display = 'none';
+      document.getElementById('resetBtn').style.display = 'none';
+      document.getElementById('successScreen').classList.add('show');
+    });
+    return;
+  }
+
+  let question = questions[step].q;
+  if (formData.name) question = question.replace('{name}', formData.name.split(' ')[0]);
+
+  typeMessage(question, true, () => {
+    document.getElementById('userInput').focus();
+  });
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+  const input = document.getElementById('userInput');
+  let value = input.value.trim();
+
+  // Handle empty input
+  if (!value && step < questions.length - 1) {
+    const randomError = errorResponses[Math.floor(Math.random() * errorResponses.length)];
+    typeMessage(randomError, true);
+    return;
+  }
+
+  // Special handling for phone step
+  if (questions[step].field === "phone") {
+    const lower = value.toLowerCase();
+    if (lower === '' || lower === 'no' || lower === 'none' || lower === 'email' || lower === 'email only') {
+      value = 'Email preferred';
+      formData.phone = value;
+      typeMessage("Understood — we'll stick to email. Thank you.", true, () => {
+        input.value = '';
+        step++;
+        setTimeout(nextQuestion, 700);
+      });
+      return;
+    }
+    // Basic phone check (very lenient — just check for digits + optional + or spaces)
+    if (!/^[+\d\s()-]{7,20}$/.test(value)) {
+      typeMessage("That doesn't look like a valid phone number — could you try again, or say 'no'?", true);
+      return;
+    }
+    formData.phone = value;
+    typeMessage("Got it — we'll use this number if needed. Thank you.", true, () => {
+      input.value = '';
+      step++;
+      setTimeout(nextQuestion, 700);
+    });
+    return;
+  }
+
+  // Email validation
+  if (questions[step].field === "email" && !isValidEmail(value)) {
+    typeMessage("Please enter a valid email address (e.g. name@example.com)", true);
+    return;
+  }
+
+  addUserMessage(value);
+  formData[questions[step].field] = value;
+
+  let reply = "Got it.";
+  if (step === 0) reply = `Thank you, ${value.split(' ')[0]}.`;
+  else if (step === 1) reply = "Noted.";
+  else if (step === 2) reply = "Understood.";
+  else if (step === 3) reply = "Thank you — that's helpful.";
+
+  typeMessage(reply, true, () => {
+    input.value = '';
+    step++;
+    setTimeout(nextQuestion, 700);
+  });
+});
+
+// Reset button — restarts conversation without reload
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (confirm("Reset the form and start over?")) {
+    document.getElementById('chatContainer').innerHTML = '';
+    document.getElementById('inputArea').style.display = 'block';
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('resetBtn').style.display = 'block';
+    document.getElementById('successScreen').classList.remove('show');
+    formData = {};
+    step = 0;
+    setTimeout(nextQuestion, 400);
+  }
+});
+
+// Enter key support
+document.getElementById('userInput').addEventListener('keypress', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    document.getElementById('nextBtn').click();
+  }
+});
+
+// Start conversation faster
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    nextQuestion();
+  }, 400);
+});
+</script>
