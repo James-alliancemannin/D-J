@@ -1,181 +1,745 @@
-<script>
-// Year in footer
-document.getElementById("year").textContent = new Date().getFullYear();
-
-// Sticky header shrink
-const topbar = document.getElementById("topbar");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 14) topbar.classList.add("shrink");
-  else topbar.classList.remove("shrink");
-});
-
-// Character-by-character typing (smooth & natural)
-function typeMessage(text, isBot = true, callback = null) {
-  const bubble = document.createElement('div');
-  bubble.className = `chat-bubble ${isBot ? 'bot' : 'user'}`;
-  document.getElementById('chatContainer').appendChild(bubble);
-  document.getElementById('chatContainer').scrollTop = 999999;
-
-  let i = 0;
-  const interval = setInterval(() => {
-    bubble.textContent = text.substring(0, i) + (i < text.length ? '|' : '');
-    i++;
-    if (i > text.length) {
-      clearInterval(interval);
-      bubble.textContent = text;
-      bubble.classList.add('visible');
-      if (callback) setTimeout(callback, 500);
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>pelecānī — Private Investigations</title>
+  <meta name="description" content="pelecānī is a discreet private firm delivering evidence-led results for private and corporate clients looking for more" />
+  <meta name="theme-color" content="#0A3161" />
+  <style>
+    :root{
+      --navy:#0A3161;
+      --navy2:#081f3d;
+      --red:#B31942;
+      --bg:#F6F8FB;
+      --surface:#FFFFFF;
+      --surface2:#FAFBFD;
+      --text:#0B1220;
+      --muted:#425466;
+      --muted2:#64748B;
+      --line: rgba(10,49,97,.14);
+      --line2: rgba(10,49,97,.22);
+      --shadow: 0 18px 55px rgba(2,8,23,.10);
+      --shadow2: 0 10px 26px rgba(2,8,23,.08);
+      --radius: 18px;
+      --radius2: 16px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
-  }, 28 + Math.random() * 42); // 28–70 ms per character
-}
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(10,49,97,.10), transparent 55%),
+        radial-gradient(900px 520px at 88% 0%, rgba(179,25,66,.08), transparent 60%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--bg) 35%, var(--bg) 100%);
+      line-height:1.4;
+      letter-spacing:.15px;
+    }
+    .wrap{
+      max-width: 1180px;
+      margin:0 auto;
+      padding: 0 18px 70px;
+    }
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter: blur(10px);
+      background: rgba(246,248,251,.72);
+      border-bottom: 1px solid rgba(10,49,97,.10);
+      transition: padding .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .topbar-inner{
+      max-width: 1180px;
+      margin:0 auto;
+      padding: 18px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      transition: padding .18s ease;
+    }
+    .topbar.shrink{
+      background: rgba(246,248,251,.88);
+      box-shadow: 0 10px 24px rgba(2,8,23,.06);
+    }
+    .topbar.shrink .topbar-inner{
+      padding: 10px 18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 240px;
+    }
+    .logo{
+      width:42px;height:42px;
+      border-radius: 14px;
+      border:1px solid rgba(10,49,97,.18);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(10,49,97,.16), transparent 60%),
+        radial-gradient(circle at 70% 25%, rgba(179,25,66,.14), transparent 58%),
+        linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.65));
+      box-shadow: var(--shadow2);
+    }
+    .brand h1{
+      margin:0;
+      font-size: 18px;
+      font-weight: 850;
+      letter-spacing: .5px;
+      color: var(--navy);
+    }
+    .brand small{
+      display:block;
+      margin-top:2px;
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing:.25px;
+    }
+    nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlink{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(10,49,97,.14);
+      background: rgba(255,255,255,.65);
+      color: var(--navy);
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .navlink:hover{
+      transform: translateY(-1px);
+      border-color: rgba(10,49,97,.26);
+      background: rgba(255,255,255,.92);
+    }
+    .navcta{
+      padding: 10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(179,25,66,.25);
+      background: linear-gradient(180deg, rgba(179,25,66,.10), rgba(179,25,66,.06));
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 850;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .navcta:hover{
+      transform: translateY(-1px);
+      border-color: rgba(179,25,66,.38);
+      box-shadow: 0 14px 28px rgba(2,8,23,.10);
+    }
+    /* Hero / Form Container */
+    .hero{
+      padding: 26px 0 20px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      nav{ justify-content:flex-start; }
+    }
+    .card{
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid rgba(10,49,97,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .intro{
+      padding: 26px 26px 22px;
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(10,49,97,.08), transparent 60%),
+        radial-gradient(900px 520px at 88% 0%, rgba(179,25,66,.06), transparent 62%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--surface2) 100%);
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-transform: uppercase;
+      letter-spacing:.8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: linear-gradient(180deg, var(--navy), var(--red));
+      box-shadow: 0 0 0 5px rgba(10,49,97,.10);
+    }
+    .headline{
+      margin:0 0 10px;
+      font-size: clamp(30px, 3.4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: .2px;
+      color: var(--navy2);
+      font-weight: 900;
+    }
+    .subhead{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 70ch;
+    }
+    .rule{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(10,49,97,.20), transparent);
+      margin: 18px 0;
+    }
+    /* Conversational Form */
+    .conversational-form{
+      position:relative;
+      min-height: 520px;
+      padding: 20px 0;
+    }
+    .chat-container{
+      margin-bottom: 24px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-bubble{
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 18px 18px 18px 4px;
+      margin-bottom: 16px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      color: #0B1220;
+      font-weight: 500;
+    }
+    .chat-bubble.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .chat-bubble.bot{
+      background: rgba(10,49,97,0.12);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.user{
+      background: rgba(179,25,66,0.14);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      margin-left: auto;
+    }
+    .typing-cursor{
+      display:inline-block;
+      width: 8px;
+      height: 20px;
+      background: var(--navy);
+      vertical-align: middle;
+      animation: blink 0.7s step-end infinite;
+      margin-left: 4px;
+    }
+    @keyframes blink{ 50% { opacity:0; } }
 
-// 10 varied error responses for rubbish/invalid input
-const errorResponses = [
-  "Sorry, that doesn't look right — could you try again?",
-  "I didn't catch that. Please type a valid response.",
-  "Hmm, that doesn't seem correct. Let's try once more?",
-  "I'm sorry, I need a proper answer to continue.",
-  "That doesn't look like what I'm expecting — could you rephrase?",
-  "Oops, that wasn't quite right. Please try again.",
-  "I think there might be a typo — could you enter that again?",
-  "Sorry, I didn't understand. Let's try that step again.",
-  "That doesn't seem valid. Please provide a clear answer.",
-  "Not quite — could you give me the correct information?"
-];
+    .input-wrapper{
+      position:relative;
+      margin-top: 12px;
+    }
+    .input-wrapper input{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid rgba(10,49,97,.22);
+      background: #FFFFFF;
+      color: var(--text);
+      padding: 14px 18px;
+      font-size: 15px;
+      outline:none;
+    }
+    .input-wrapper input:focus{
+      border-color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(10,49,97,0.12);
+    }
+    .form-actions{
+      margin-top: 16px;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .next-btn{
+      flex:1;
+      padding: 14px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .reset-btn{
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px solid var(--muted);
+      color: var(--muted2);
+      border-radius: 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .reset-btn:hover{
+      background: rgba(10,49,97,0.05);
+    }
+    .success-screen{
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 1.2rem;
+      color: var(--navy2);
+    }
+    .success-screen.show{ display:block; }
+    .legal-confirm{
+      margin-top: 24px;
+      padding: 16px;
+      background: rgba(179,25,66,0.06);
+      border-radius: 12px;
+      border: 1px solid rgba(179,25,66,0.2);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .legal-confirm label{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .legal-confirm input{
+      margin-top: 4px;
+      accent-color: var(--navy);
+    }
+    /* Team photos - smaller, uniform, 4 in a row */
+    .team-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .person{
+      text-align:center;
+      transition: transform 0.25s ease;
+    }
+    .person:hover{
+      transform: translateY(-6px);
+    }
+    .avatar{
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(10,49,97,0.15);
+      box-shadow: 0 8px 24px rgba(2,8,23,0.12);
+      transition: all 0.3s ease;
+    }
+    .avatar:hover{
+      transform: scale(1.08);
+      box-shadow: 0 12px 32px rgba(2,8,23,0.18);
+    }
+    .meta{
+      margin-top: 12px;
+    }
+    .name{
+      margin:0;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--navy2);
+    }
+    .role{
+      margin:4px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media (max-width: 980px){
+      .team-grid{ grid-template-columns: repeat(2, 1fr); }
+      .avatar{ width: 160px; height: 160px; }
+    }
+    @media (max-width: 580px){
+      .team-grid{ grid-template-columns: 1fr; }
+      .avatar{ width: 140px; height: 140px; }
+    }
+  </style>
+</head>
+<body>
 
-// Main questions + phone step
-const questions = [
-  { q: "We invite you to give us more information here, so we may help with your confidential enquiry.\n\nWhat is your full name and title?", field: "name" },
-  { q: "Thank you, {name}. What is the best email address to reach you?", field: "email" },
-  { q: "Understood. Could you tell me the main jurisdiction this matter relates to?", field: "jurisdiction" },
-  { q: "Perfect. In a few sentences, please outline what you need help with (urgency, concerns, etc.).", field: "summary" },
-  {
-    q: "If you'd prefer to be contacted by phone, please tell us the best number. Otherwise, just say 'no', 'email only', or leave it blank.",
-    field: "phone"
-  }
-];
+  <!-- Topbar -->
+  <div class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>pelecānī</h1>
+          <small>Private Investigations • Discreet • Evidence-led</small>
+        </div>
+      </div>
+      <nav aria-label="Top navigation">
+        <a class="navlink" href="#enquiry">Enquiry</a>
+        <a class="navlink" href="#team">Team</a>
+        <a class="navlink" href="#process">Process</a>
+        <a class="navcta" href="#enquiry">Make an enquiry</a>
+      </nav>
+    </div>
+  </div>
 
-let step = 0;
-let formData = {};
+  <div class="wrap">
+    <section class="hero" id="enquiry">
+      <div class="hero-grid">
+        <!-- Conversational Form -->
+        <div class="card intro">
+          <div class="kicker"><span class="dot" aria-hidden="true"></span> Discreet intake • Rapid response</div>
+          <h2 class="headline">Confidential enquiries.<br/>Lawful, defensible results.</h2>
 
-function addUserMessage(text) {
-  const bubble = document.createElement('div');
-  bubble.className = 'chat-bubble user';
-  bubble.textContent = text;
-  document.getElementById('chatContainer').appendChild(bubble);
-  document.getElementById('chatContainer').scrollTop = 999999;
-  bubble.classList.add('visible');
-}
+          <div class="conversational-form">
+            <div class="chat-container" id="chatContainer"></div>
 
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-}
+            <div class="input-wrapper" id="inputArea">
+              <input type="text" id="userInput" placeholder="Type your answer here..." autocomplete="off" />
+            </div>
 
-function nextQuestion() {
-  if (step >= questions.length) {
-    typeMessage("Thank you. Your message has been encrypted for your security and we will get back to you shortly.", true, () => {
-      document.getElementById('inputArea').style.display = 'none';
-      document.getElementById('nextBtn').style.display = 'none';
-      document.getElementById('resetBtn').style.display = 'none';
-      document.getElementById('successScreen').classList.add('show');
+            <div class="form-actions">
+              <button class="next-btn" id="nextBtn">Continue</button>
+              <button class="reset-btn" id="resetBtn">Reset form</button>
+            </div>
+
+            <!-- Legal confirmation checkbox -->
+            <div class="legal-confirm" id="legalConfirm" style="display:none;">
+              <label>
+                <input type="checkbox" id="legalAgree" />
+                I confirm that the information provided is true and accurate to the best of my knowledge, that I am legally authorised to make this enquiry on behalf of myself or the entity concerned, and that the purpose of this enquiry is lawful and does not involve any prohibited activity including (but not limited to) harassment, intimidation, unlawful surveillance, or any breach of applicable data protection or privacy laws. I understand that all communications are treated confidentially and that pelecānī may decline or terminate the enquiry if it appears to involve unlawful activity.
+              </label>
+            </div>
+
+            <div class="success-screen" id="successScreen">
+              <p style="font-size:1.4rem; font-weight:900; color:var(--navy2);">Thank you.</p>
+              <p style="margin-top:16px; color:var(--muted);">
+                Your message has been encrypted for your security<br/>
+                and we will get back to you shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side panel -->
+        <aside class="card side" aria-label="Service overview">
+          <div class="section-title">
+            <h3>Discretion by design</h3>
+            <div class="rulemini"></div>
+          </div>
+          <p>We route all contact through central intake to preserve discretion and operational security. Work proceeds only on a clear lawful basis with written engagement terms.</p>
+          <div class="badges">
+            <div class="badge">Restricted access</div>
+            <div class="badge">Evidence-led reporting</div>
+            <div class="badge">Clear audit trail</div>
+            <div class="badge">By engagement only</div>
+          </div>
+          <div class="process">
+            <div class="title"><span class="bar"></span> How it works</div>
+            <p>Initial assessment → scope & lawful basis → written engagement → investigation → report & evidential package.</p>
+          </div>
+          <div class="rule"></div>
+          <div class="section-title">
+            <h3>Confidentiality</h3>
+            <div class="rulemini"></div>
+          </div>
+          <p>Enquiries are transmitted securely (HTTPS/TLS). We restrict access to enquiry data and treat it confidentially. Do not submit highly sensitive documents via the form; a secure upload link can be provided after screening.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Team photos -->
+    <section class="section" id="team">
+      <div class="card team-wrap">
+        <div class="section-title">
+          <h3>Team</h3>
+          <div class="rulemini"></div>
+        </div>
+        <p class="team-lead">
+          The team below supports casework across field operations and open-source intelligence. All requests are routed through central intake.
+        </p>
+        <div class="team-grid">
+          <div class="person">
+            <img class="avatar" src="david.jpg" alt="David — Case Director" loading="lazy" />
+            <div class="meta">
+              <p class="name">David</p>
+              <p class="role">Case Director</p>
+            </div>
+          </div>
+          <div class="person">
+            <img class="avatar" src="james.jpg" alt="James — Investigations Lead" loading="lazy" />
+            <div class="meta">
+              <p class="name">James</p>
+              <p class="role">Investigations Lead</p>
+            </div>
+          </div>
+          <div class="person">
+            <img class="avatar" src="mark.jpg" alt="Mark — Field Operations" loading="lazy" />
+            <div class="meta">
+              <p class="name">Mark</p>
+              <p class="role">Field Operations</p>
+            </div>
+          </div>
+          <div class="person">
+            <img class="avatar" src="luke.jpg" alt="Luke — OSINT & Due Diligence" loading="lazy" />
+            <div class="meta">
+              <p class="name">Luke</p>
+              <p class="role">OSINT &amp; Due Diligence</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer aria-label="Footer">
+      <div class="col">
+        <div style="color:var(--navy2); font-weight:950; letter-spacing:.25px;">pelecānī</div>
+        <div style="margin-top:6px;">Private Investigations • Isle of Man / UK • By engagement only</div>
+        <div style="margin-top:8px;">© <span id="year"></span> pelecānī. All rights reserved.</div>
+      </div>
+      <div class="legal">
+        <div style="color:var(--navy2); font-weight:950; margin-bottom:6px;">Confidentiality &amp; data handling</div>
+        We transmit enquiries securely (HTTPS/TLS). We restrict access to enquiry data and handle it confidentially.
+        Do not submit highly sensitive documents via the form; we can provide a secure upload link after initial screening.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Year in footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Sticky header
+    const topbar = document.getElementById("topbar");
+    window.addEventListener("scroll", () => {
+      topbar.classList.toggle("shrink", window.scrollY > 14);
     });
-    return;
-  }
 
-  let question = questions[step].q;
-  if (formData.name) question = question.replace('{name}', formData.name.split(' ')[0]);
+    // Character-by-character typing
+    function typeMessage(text, isBot = true, callback = null) {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${isBot ? 'bot' : 'user'}`;
+      document.getElementById('chatContainer').appendChild(bubble);
+      document.getElementById('chatContainer').scrollTop = 999999;
 
-  typeMessage(question, true, () => {
-    document.getElementById('userInput').focus();
-  });
-}
+      let i = 0;
+      const interval = setInterval(() => {
+        bubble.textContent = text.substring(0, i) + (i < text.length ? '|' : '');
+        i++;
+        if (i > text.length) {
+          clearInterval(interval);
+          bubble.textContent = text;
+          bubble.classList.add('visible');
+          if (callback) setTimeout(callback, 500);
+        }
+      }, 28 + Math.random() * 42);
+    }
 
-document.getElementById('nextBtn').addEventListener('click', () => {
-  const input = document.getElementById('userInput');
-  let value = input.value.trim();
+    // Error responses
+    const errorResponses = [
+      "Sorry, that doesn't seem like a valid response.",
+      "Could you please try again?",
+      "I didn't quite catch that — could you rephrase?",
+      "I'm sorry, I need a proper answer to continue.",
+      "Hmm, that doesn't look right. Let's try again.",
+      "Please provide a valid response so I can help you.",
+      "I'm afraid I can't proceed with that. Could you try again?",
+      "That doesn't seem correct. Let's start this step over.",
+      "Sorry about that — please type a proper answer.",
+      "I need more information to assist you properly."
+    ];
 
-  // Handle empty input
-  if (!value && step < questions.length - 1) {
-    const randomError = errorResponses[Math.floor(Math.random() * errorResponses.length)];
-    typeMessage(randomError, true);
-    return;
-  }
+    // Questions
+    const questions = [
+      { q: "We invite you to give us more information here, so we may help with your confidential enquiry.\n\nWhat is your full name and title?", field: "name" },
+      { q: "Thank you, {name}. What is the best email address to reach you?", field: "email" },
+      { q: "Understood. Could you tell me the main jurisdiction this matter relates to?", field: "jurisdiction" },
+      { q: "Perfect. In a few sentences, please outline what you need help with (urgency, concerns, etc.).", field: "summary" },
+      { q: "If you'd prefer to be contacted by phone, please tell us the best number to reach you on. Otherwise, just say 'no', 'email only', or leave blank.", field: "phone" }
+    ];
 
-  // Special handling for phone step
-  if (questions[step].field === "phone") {
-    const lower = value.toLowerCase();
-    if (lower === '' || lower === 'no' || lower === 'none' || lower === 'email' || lower === 'email only') {
-      value = 'Email preferred';
-      formData.phone = value;
-      typeMessage("Understood — we'll stick to email. Thank you.", true, () => {
+    let step = 0;
+    let formData = {};
+
+    function addUserMessage(text) {
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble user';
+      bubble.textContent = text;
+      document.getElementById('chatContainer').appendChild(bubble);
+      bubble.classList.add('visible');
+      document.getElementById('chatContainer').scrollTop = 999999;
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    }
+
+    function nextQuestion() {
+      if (step >= questions.length) {
+        document.getElementById('legalConfirm').style.display = 'block';
+        document.getElementById('nextBtn').textContent = 'Submit Enquiry';
+        document.getElementById('nextBtn').onclick = finalSubmit;
+        return;
+      }
+
+      let question = questions[step].q;
+      if (formData.name) question = question.replace('{name}', formData.name.split(' ')[0]);
+
+      typeMessage(question, true, () => {
+        document.getElementById('userInput').focus();
+      });
+    }
+
+    function finalSubmit() {
+      if (!document.getElementById('legalAgree').checked) {
+        typeMessage("Please confirm the legal declaration before submitting.", true);
+        return;
+      }
+
+      typeMessage("Thank you. Your message has been encrypted for your security and we will get back to you shortly.", true, () => {
+        document.getElementById('inputArea').style.display = 'none';
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('legalConfirm').style.display = 'none';
+        document.getElementById('successScreen').classList.add('show');
+      });
+
+      // === REAL EMAIL SUBMISSION via Formspree ===
+      const payload = {
+        name: formData.name || 'Not provided',
+        email: formData.email || 'Not provided',
+        jurisdiction: formData.jurisdiction || 'Not provided',
+        summary: formData.summary || 'Not provided',
+        phone: formData.phone || 'Email preferred',
+        submittedAt: new Date().toISOString(),
+        _subject: "New Confidential Enquiry from pelecānī website"
+      };
+
+      fetch('https://formspree.io/f/xvzbwael', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Form submitted successfully');
+        } else {
+          console.error('Form submission failed');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const input = document.getElementById('userInput');
+      let value = input.value.trim();
+
+      if (step >= questions.length) return;
+
+      if (!value && step < questions.length - 1) {
+        const randomError = errorResponses[Math.floor(Math.random() * errorResponses.length)];
+        typeMessage(randomError, true);
+        return;
+      }
+
+      if (questions[step].field === "phone") {
+        const lower = value.toLowerCase();
+        if (lower === '' || lower === 'no' || lower === 'none' || lower === 'email' || lower === 'email only') {
+          formData.phone = 'Email preferred';
+          typeMessage("Understood — we'll stick to email. Thank you.", true, () => {
+            input.value = '';
+            step++;
+            setTimeout(nextQuestion, 700);
+          });
+          return;
+        }
+        if (!/^[+\d\s()-]{7,20}$/.test(value)) {
+          typeMessage("That doesn't look like a valid phone number — could you try again, or say 'no'?", true);
+          return;
+        }
+        formData.phone = value;
+        typeMessage("Got it — we'll use this number if needed. Thank you.", true, () => {
+          input.value = '';
+          step++;
+          setTimeout(nextQuestion, 700);
+        });
+        return;
+      }
+
+      if (questions[step].field === "email" && !isValidEmail(value)) {
+        typeMessage("Please enter a valid email address (e.g. name@example.com)", true);
+        return;
+      }
+
+      addUserMessage(value);
+      formData[questions[step].field] = value;
+
+      let reply = "Got it.";
+      if (step === 0) reply = `Thank you, ${value.split(' ')[0]}.`;
+      else if (step === 1) reply = "Noted.";
+      else if (step === 2) reply = "Understood.";
+      else if (step === 3) reply = "Thank you — that's helpful.";
+
+      typeMessage(reply, true, () => {
         input.value = '';
         step++;
         setTimeout(nextQuestion, 700);
       });
-      return;
-    }
-    // Basic phone check (very lenient — just check for digits + optional + or spaces)
-    if (!/^[+\d\s()-]{7,20}$/.test(value)) {
-      typeMessage("That doesn't look like a valid phone number — could you try again, or say 'no'?", true);
-      return;
-    }
-    formData.phone = value;
-    typeMessage("Got it — we'll use this number if needed. Thank you.", true, () => {
-      input.value = '';
-      step++;
-      setTimeout(nextQuestion, 700);
     });
-    return;
-  }
 
-  // Email validation
-  if (questions[step].field === "email" && !isValidEmail(value)) {
-    typeMessage("Please enter a valid email address (e.g. name@example.com)", true);
-    return;
-  }
+    // Reset button
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm("Reset the form and start over?")) {
+        document.getElementById('chatContainer').innerHTML = '';
+        document.getElementById('inputArea').style.display = 'block';
+        document.getElementById('nextBtn').style.display = 'block';
+        document.getElementById('resetBtn').style.display = 'block';
+        document.getElementById('successScreen').classList.remove('show');
+        document.getElementById('legalConfirm').style.display = 'none';
+        document.getElementById('nextBtn').textContent = 'Continue';
+        document.getElementById('nextBtn').onclick = null;
+        formData = {};
+        step = 0;
+        setTimeout(nextQuestion, 400);
+      }
+    });
 
-  addUserMessage(value);
-  formData[questions[step].field] = value;
+    // Enter key
+    document.getElementById('userInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('nextBtn').click();
+      }
+    });
 
-  let reply = "Got it.";
-  if (step === 0) reply = `Thank you, ${value.split(' ')[0]}.`;
-  else if (step === 1) reply = "Noted.";
-  else if (step === 2) reply = "Understood.";
-  else if (step === 3) reply = "Thank you — that's helpful.";
-
-  typeMessage(reply, true, () => {
-    input.value = '';
-    step++;
-    setTimeout(nextQuestion, 700);
-  });
-});
-
-// Reset button — restarts conversation without reload
-document.getElementById('resetBtn').addEventListener('click', () => {
-  if (confirm("Reset the form and start over?")) {
-    document.getElementById('chatContainer').innerHTML = '';
-    document.getElementById('inputArea').style.display = 'block';
-    document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('resetBtn').style.display = 'block';
-    document.getElementById('successScreen').classList.remove('show');
-    formData = {};
-    step = 0;
-    setTimeout(nextQuestion, 400);
-  }
-});
-
-// Enter key support
-document.getElementById('userInput').addEventListener('keypress', e => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    document.getElementById('nextBtn').click();
-  }
-});
-
-// Start conversation faster
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    nextQuestion();
-  }, 400);
-});
-</script>
+    // Start
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        nextQuestion();
+      }, 400);
+    });
+  </script>
+</body>
+</html>
