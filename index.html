@@ -4,8 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Aspen Meridian — Private Investigations</title>
-  <meta name="description" content="Aspen Peridian is a discreet private firm delivering evidence‑led investigations and results for private and corporate clients." />
+  <meta name="description" content="Aspen Meridian is a discreet private investigations and advisory firm delivering evidence-led enquiries and defensible results for private and corporate clients." />
   <meta name="theme-color" content="#0A3161" />
+
   <style>
     :root{
       --navy:#0A3161;
@@ -25,6 +26,7 @@
       --radius2: 16px;
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
+
     *{ box-sizing:border-box; margin:0; padding:0; }
     html{ scroll-behavior:smooth; }
     body{
@@ -38,11 +40,14 @@
       line-height:1.4;
       letter-spacing:.15px;
     }
+    a{ color: inherit; text-decoration:none; }
+
     .wrap{
       max-width: 1180px;
       margin:0 auto;
       padding: 0 18px 70px;
     }
+
     /* Topbar */
     .topbar{
       position: sticky;
@@ -70,27 +75,30 @@
     .topbar.shrink .topbar-inner{
       padding: 10px 18px;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
-      min-width: 240px;
+      min-width: 260px;
     }
-    .logo{
-      width:42px;height:42px;
+
+    /* Logo now uses your image file */
+    .logoimg{
+      width:42px;
+      height:42px;
       border-radius: 14px;
       border:1px solid rgba(10,49,97,.18);
-      background:
-        radial-gradient(circle at 30% 30%, rgba(10,49,97,.16), transparent 60%),
-        radial-gradient(circle at 70% 25%, rgba(179,25,66,.14), transparent 58%),
-        linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.65));
       box-shadow: var(--shadow2);
+      object-fit: cover;
+      background: #fff;
     }
+
     .brand h1{
       margin:0;
       font-size: 18px;
-      font-weight: 850;
-      letter-spacing: .5px;
+      font-weight: 900;
+      letter-spacing: .35px;
       color: var(--navy);
     }
     .brand small{
@@ -100,6 +108,7 @@
       color: var(--muted2);
       letter-spacing:.25px;
     }
+
     nav{
       display:flex;
       align-items:center;
@@ -130,7 +139,7 @@
       background: linear-gradient(180deg, rgba(179,25,66,.10), rgba(179,25,66,.06));
       color: var(--navy);
       font-size: 13px;
-      font-weight: 850;
+      font-weight: 900;
       transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
       white-space:nowrap;
       user-select:none;
@@ -140,6 +149,7 @@
       border-color: rgba(179,25,66,.38);
       box-shadow: 0 14px 28px rgba(2,8,23,.10);
     }
+
     /* Hero / Form Container */
     .hero{
       padding: 26px 0 20px;
@@ -153,7 +163,9 @@
     @media (max-width: 980px){
       .hero-grid{ grid-template-columns: 1fr; }
       nav{ justify-content:flex-start; }
+      .brand{ min-width: unset; }
     }
+
     .card{
       border-radius: var(--radius);
       background: var(--surface);
@@ -161,6 +173,7 @@
       box-shadow: var(--shadow);
       overflow:hidden;
     }
+
     .intro{
       padding: 26px 26px 22px;
       background:
@@ -202,6 +215,7 @@
       background: linear-gradient(90deg, transparent, rgba(10,49,97,.20), transparent);
       margin: 18px 0;
     }
+
     /* Conversational Form */
     .conversational-form{
       position:relative;
@@ -215,19 +229,19 @@
       padding-right: 8px;
       display: flex;
       flex-direction: column;
+      gap: 10px;
     }
     .chat-bubble{
       max-width: 85%;
       padding: 12px 16px;
       border-radius: 18px 18px 18px 4px;
-      margin-bottom: 16px;
       font-size: 14.5px;
       line-height: 1.5;
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease;
       color: #0B1220;
-      font-weight: 500;
+      font-weight: 550;
     }
     .chat-bubble.visible{
       opacity:1;
@@ -244,16 +258,6 @@
       border-bottom-right-radius: 4px;
       margin-left: auto;
     }
-    .typing-cursor{
-      display:inline-block;
-      width: 8px;
-      height: 20px;
-      background: var(--navy);
-      vertical-align: middle;
-      animation: blink 0.7s step-end infinite;
-      margin-left: 4px;
-    }
-    @keyframes blink{ 50% { opacity:0; } }
 
     .input-wrapper{
       position:relative;
@@ -290,10 +294,11 @@
       font-weight: 900;
       cursor: pointer;
     }
+    .next-btn:hover{ filter: brightness(.97); }
     .reset-btn{
       padding: 10px 16px;
       background: transparent;
-      border: 1px solid var(--muted);
+      border: 1px solid rgba(10,49,97,.25);
       color: var(--muted2);
       border-radius: 12px;
       font-size: 13px;
@@ -306,10 +311,11 @@
       display: none;
       text-align: center;
       padding: 40px 20px;
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       color: var(--navy2);
     }
     .success-screen.show{ display:block; }
+
     .legal-confirm{
       margin-top: 24px;
       padding: 16px;
@@ -329,7 +335,65 @@
       margin-top: 4px;
       accent-color: var(--navy);
     }
-    /* Team photos - smaller, uniform, 4 in a row */
+
+    /* Side panel */
+    .side{ padding: 22px 22px 20px; }
+    .section-title h3{
+      margin:0;
+      font-size:18px;
+      font-weight: 950;
+      color: var(--navy2);
+    }
+    .rulemini{
+      height:1px;
+      margin:10px 0 14px;
+      background: linear-gradient(90deg, rgba(10,49,97,.18), transparent);
+    }
+    .side p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.55;
+    }
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 10px 0 14px;
+    }
+    .badge{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(10,49,97,.16);
+      background: rgba(255,255,255,.75);
+      color: var(--navy);
+      font-size: 12.5px;
+      font-weight: 850;
+    }
+    .process .title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin: 12px 0 8px;
+      font-weight: 950;
+      color: var(--navy2);
+    }
+    .process .bar{
+      width:10px;
+      height:10px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--navy), var(--red));
+    }
+
+    /* Team */
+    .section{ padding: 18px 0; }
+    .team-wrap{ padding: 22px; }
+    .team-lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.55;
+    }
     .team-grid{
       display:grid;
       grid-template-columns: repeat(4, 1fr);
@@ -340,9 +404,7 @@
       text-align:center;
       transition: transform 0.25s ease;
     }
-    .person:hover{
-      transform: translateY(-6px);
-    }
+    .person:hover{ transform: translateY(-6px); }
     .avatar{
       width: 180px;
       height: 180px;
@@ -351,14 +413,13 @@
       border: 4px solid rgba(10,49,97,0.15);
       box-shadow: 0 8px 24px rgba(2,8,23,0.12);
       transition: all 0.3s ease;
+      background: #fff;
     }
     .avatar:hover{
-      transform: scale(1.08);
+      transform: scale(1.05);
       box-shadow: 0 12px 32px rgba(2,8,23,0.18);
     }
-    .meta{
-      margin-top: 12px;
-    }
+    .meta{ margin-top: 12px; }
     .name{
       margin:0;
       font-size: 15px;
@@ -378,20 +439,41 @@
       .team-grid{ grid-template-columns: 1fr; }
       .avatar{ width: 140px; height: 140px; }
     }
+
+    /* Footer */
+    footer{
+      margin-top: 22px;
+      padding: 18px 0 0;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      color: var(--muted);
+    }
+    footer .legal{
+      border: 1px solid rgba(10,49,97,.12);
+      background: rgba(255,255,255,.65);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    @media (max-width: 980px){
+      footer{ grid-template-columns: 1fr; }
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Topbar -->
   <div class="topbar" id="topbar">
     <div class="topbar-inner">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <img class="logoimg" src="alliancemannin.png" alt="Aspen Meridian logo" />
         <div>
-          <h1>pelecānī</h1>
+          <h1>Aspen Meridian</h1>
           <small>Private Investigations • Discreet • Evidence-led</small>
         </div>
       </div>
+
       <nav aria-label="Top navigation">
         <a class="navlink" href="#enquiry">Enquiry</a>
         <a class="navlink" href="#team">Team</a>
@@ -402,8 +484,11 @@
   </div>
 
   <div class="wrap">
+
+    <!-- Enquiry -->
     <section class="hero" id="enquiry">
       <div class="hero-grid">
+
         <!-- Conversational Form -->
         <div class="card intro">
           <div class="kicker"><span class="dot" aria-hidden="true"></span> Discreet intake • Rapid response</div>
@@ -425,7 +510,7 @@
             <div class="legal-confirm" id="legalConfirm" style="display:none;">
               <label>
                 <input type="checkbox" id="legalAgree" />
-                I confirm that the information provided is true and accurate to the best of my knowledge, that I am legally authorised to make this enquiry on behalf of myself or the entity concerned, and that the purpose of this enquiry is lawful and does not involve any prohibited activity including (but not limited to) harassment, intimidation, unlawful surveillance, or any breach of applicable data protection or privacy laws. I understand that all communications are treated confidentially and that pelecānī may decline or terminate the enquiry if it appears to involve unlawful activity.
+                I confirm that the information provided is true and accurate to the best of my knowledge, that I am legally authorised to make this enquiry on behalf of myself or the entity concerned, and that the purpose of this enquiry is lawful and does not involve any prohibited activity including (but not limited to) harassment, intimidation, unlawful surveillance, or any breach of applicable data protection or privacy laws. I understand that all communications are treated confidentially and that Aspen Meridian may decline or terminate the enquiry if it appears to involve unlawful activity.
               </label>
             </div>
 
@@ -440,29 +525,39 @@
         </div>
 
         <!-- Side panel -->
-        <aside class="card side" aria-label="Service overview">
+        <aside class="card side" id="process" aria-label="Service overview">
           <div class="section-title">
             <h3>Discretion by design</h3>
             <div class="rulemini"></div>
           </div>
-          <p>We route all contact through central intake to preserve discretion and operational security. Work proceeds only on a clear basis with written engagement terms.</p>
+          <p>
+            We route all contact through central intake to preserve discretion and operational security.
+            Work proceeds only on a clear basis with written engagement terms.
+          </p>
+
           <div class="badges">
             <div class="badge">Restricted access</div>
             <div class="badge">Evidence-led reporting</div>
             <div class="badge">Clear audit trail</div>
             <div class="badge">By engagement only</div>
           </div>
+
           <div class="process">
             <div class="title"><span class="bar"></span> How it works</div>
-            <p>Initial assessment → scope & undertaking basis → engagement → investigation → report & evidential package.</p>
+            <p>Initial assessment → scope &amp; undertaking basis → engagement → investigation → report &amp; evidential package.</p>
           </div>
+
           <div class="rule"></div>
+
           <div class="section-title">
             <h3>Confidentiality</h3>
             <div class="rulemini"></div>
           </div>
-          <p>Please do not submit highly sensitive documents via the form; a secure upload link can be provided after onboarding.</p>
+          <p>
+            Please do not submit highly sensitive documents via the form; a secure upload link can be provided after onboarding.
+          </p>
         </aside>
+
       </div>
     </section>
 
@@ -473,9 +568,11 @@
           <h3>Team</h3>
           <div class="rulemini"></div>
         </div>
+
         <p class="team-lead">
           The team below supports casework across field operations and open-source intelligence. All requests are routed through central intake.
         </p>
+
         <div class="team-grid">
           <div class="person">
             <img class="avatar" src="david.jpg" alt="David — Case Director" loading="lazy" />
@@ -484,262 +581,6 @@
               <p class="role">Case Director</p>
             </div>
           </div>
+
           <div class="person">
-            <img class="avatar" src="james.jpg" alt="James — Investigations Lead" loading="lazy" />
-            <div class="meta">
-              <p class="name">James</p>
-              <p class="role">Investigations Lead</p>
-            </div>
-          </div>
-          <div class="person">
-            <img class="avatar" src="mark.jpg" alt="Mark — Field Operations" loading="lazy" />
-            <div class="meta">
-              <p class="name">Mark</p>
-              <p class="role">Field Operations</p>
-            </div>
-          </div>
-          <div class="person">
-            <img class="avatar" src="luke.jpg" alt="Luke — OSINT & Due Diligence" loading="lazy" />
-            <div class="meta">
-              <p class="name">Luke</p>
-              <p class="role">OSINT &amp; Due Diligence</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer aria-label="Footer">
-      <div class="col">
-        <div style="color:var(--navy2); font-weight:950; letter-spacing:.25px;">Aspen Meridian</div>
-        <div style="margin-top:6px;">Private Investigations • Isle of Man / London / Monaco / Hungary • By engagement only</div>
-        <div style="margin-top:8px;">© <span id="year"></span> Aspen Meridian. All rights reserved.</div>
-      </div>
-      <div class="legal">
-        <div style="color:var(--navy2); font-weight:950; margin-bottom:6px;">Confidentiality &amp; data handling</div>
-        Do not submit highly sensitive documents via the form; we will provide a secure upload link after initial onboarding.
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    // Year in footer
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Sticky header
-    const topbar = document.getElementById("topbar");
-    window.addEventListener("scroll", () => {
-      topbar.classList.toggle("shrink", window.scrollY > 14);
-    });
-
-    // Character-by-character typing
-    function typeMessage(text, isBot = true, callback = null) {
-      const bubble = document.createElement('div');
-      bubble.className = `chat-bubble ${isBot ? 'bot' : 'user'}`;
-      document.getElementById('chatContainer').appendChild(bubble);
-      document.getElementById('chatContainer').scrollTop = 999999;
-
-      let i = 0;
-      const interval = setInterval(() => {
-        bubble.textContent = text.substring(0, i) + (i < text.length ? '|' : '');
-        i++;
-        if (i > text.length) {
-          clearInterval(interval);
-          bubble.textContent = text;
-          bubble.classList.add('visible');
-          if (callback) setTimeout(callback, 500);
-        }
-      }, 28 + Math.random() * 42);
-    }
-
-    // Error responses
-    const errorResponses = [
-      "Sorry, that doesn't seem like a valid response.",
-      "Could you please try again?",
-      "I didn't quite catch that — could you rephrase?",
-      "I'm sorry, I need a proper answer to continue.",
-      "Hmm, that doesn't look right. Let's try again.",
-      "Please provide a valid response so I can help you.",
-       "Please answer the question more clearly.",
-      "I'm afraid I can't proceed with that. Could you try again?",
-      "That doesn't seem correct. Let's start this step over.",
-      "Sorry about that — please type a proper answer.",
-      "I need more information to assist you properly."
-    ];
-
-    // Questions
-    const questions = [
-      { q: "We invite you to give us more information here, so we may help with your confidential enquiry.\n\nWhat is your full name and title?", field: "name" },
-      { q: "Thank you, {name}. What is the best e-mail address to reach you?", field: "email" },
-      { q: "Understood. Could you tell me the main jurisdiction this matter relates to?", field: "jurisdiction" },
-      { q: "Perfect. In a few sentences, please outline what you need help with (urgency, concerns, etc.).", field: "summary" },
-      { q: "If you'd prefer to be contacted by phone, please tell us the best number to reach you on. Otherwise, just say 'no', 'email only', or leave blank.", field: "phone" }
-    ];
-
-    let step = 0;
-    let formData = {};
-
-    function addUserMessage(text) {
-      const bubble = document.createElement('div');
-      bubble.className = 'chat-bubble user';
-      bubble.textContent = text;
-      document.getElementById('chatContainer').appendChild(bubble);
-      bubble.classList.add('visible');
-      document.getElementById('chatContainer').scrollTop = 999999;
-    }
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
-    }
-
-    function nextQuestion() {
-      if (step >= questions.length) {
-        document.getElementById('legalConfirm').style.display = 'block';
-        document.getElementById('nextBtn').textContent = 'Submit Enquiry';
-        document.getElementById('nextBtn').onclick = finalSubmit;
-        return;
-      }
-
-      let question = questions[step].q;
-      if (formData.name) question = question.replace('{name}', formData.name.split(' ')[0]);
-
-      typeMessage(question, true, () => {
-        document.getElementById('userInput').focus();
-      });
-    }
-
-    function finalSubmit() {
-      if (!document.getElementById('legalAgree').checked) {
-        typeMessage("Please confirm the legal declaration before submitting.", true);
-        return;
-      }
-
-      typeMessage("Thank you. Your message has been encrypted for your security and we will get back to you shortly.", true, () => {
-        document.getElementById('inputArea').style.display = 'none';
-        document.getElementById('nextBtn').style.display = 'none';
-        document.getElementById('resetBtn').style.display = 'none';
-        document.getElementById('legalConfirm').style.display = 'none';
-        document.getElementById('successScreen').classList.add('show');
-      });
-
-      // === REAL EMAIL SUBMISSION via Formspree ===
-      const payload = {
-        name: formData.name || 'Not provided',
-        email: formData.email || 'Not provided',
-        jurisdiction: formData.jurisdiction || 'Not provided',
-        summary: formData.summary || 'Not provided',
-        phone: formData.phone || 'Email preferred',
-        submittedAt: new Date().toISOString(),
-        _subject: "New Confidential Enquiry from Aspen Meridian website"
-      };
-
-      fetch('https://formspree.io/f/xvzbwael', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(response => {
-        if (response.ok) {
-          console.log('Form submitted successfully');
-        } else {
-          console.error('Form submission failed');
-        }
-      })
-      .catch(error => console.error('Error:', error));
-    }
-
-    document.getElementById('nextBtn').addEventListener('click', () => {
-      const input = document.getElementById('userInput');
-      let value = input.value.trim();
-
-      if (step >= questions.length) return;
-
-      if (!value && step < questions.length - 1) {
-        const randomError = errorResponses[Math.floor(Math.random() * errorResponses.length)];
-        typeMessage(randomError, true);
-        return;
-      }
-
-      if (questions[step].field === "phone") {
-        const lower = value.toLowerCase();
-        if (lower === '' || lower === 'no' || lower === 'none' || lower === 'email' || lower === 'email only') {
-          formData.phone = 'Email preferred';
-          typeMessage("Understood — we'll stick to email. Thank you.", true, () => {
-            input.value = '';
-            step++;
-            setTimeout(nextQuestion, 700);
-          });
-          return;
-        }
-        if (!/^[+\d\s()-]{7,20}$/.test(value)) {
-          typeMessage("That doesn't look like a valid phone number — could you try again, or say 'no'?", true);
-          return;
-        }
-        formData.phone = value;
-        typeMessage("Got it — we'll use this number if needed. Thank you.", true, () => {
-          input.value = '';
-          step++;
-          setTimeout(nextQuestion, 700);
-        });
-        return;
-      }
-
-      if (questions[step].field === "email" && !isValidEmail(value)) {
-        typeMessage("Please enter a valid email address (e.g. name@example.com)", true);
-        return;
-      }
-
-      addUserMessage(value);
-      formData[questions[step].field] = value;
-
-      let reply = "Got it.";
-      if (step === 0) reply = `Thank you, ${value.split(' ')[0]}.`;
-      else if (step === 1) reply = "Noted.";
-      else if (step === 2) reply = "Understood.";
-      else if (step === 3) reply = "Thank you — that's helpful.";
-
-      typeMessage(reply, true, () => {
-        input.value = '';
-        step++;
-        setTimeout(nextQuestion, 700);
-      });
-    });
-
-    // Reset button
-    document.getElementById('resetBtn').addEventListener('click', () => {
-      if (confirm("Reset the form and start over?")) {
-        document.getElementById('chatContainer').innerHTML = '';
-        document.getElementById('inputArea').style.display = 'block';
-        document.getElementById('nextBtn').style.display = 'block';
-        document.getElementById('resetBtn').style.display = 'block';
-        document.getElementById('successScreen').classList.remove('show');
-        document.getElementById('legalConfirm').style.display = 'none';
-        document.getElementById('nextBtn').textContent = 'Continue';
-        document.getElementById('nextBtn').onclick = null;
-        formData = {};
-        step = 0;
-        setTimeout(nextQuestion, 400);
-      }
-    });
-
-    // Enter key
-    document.getElementById('userInput').addEventListener('keypress', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        document.getElementById('nextBtn').click();
-      }
-    });
-
-    // Start
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        nextQuestion();
-      }, 400);
-    });
-  </script>
-</body>
-</html>
+            <img class="
