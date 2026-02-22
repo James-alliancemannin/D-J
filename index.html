@@ -445,7 +445,7 @@
             <h3>Discretion by design</h3>
             <div class="rulemini"></div>
           </div>
-          <p>We route all contact through central intake to preserve discretion and operational security. Work proceeds only on a clear lawful basis with written engagement terms.</p>
+          <p>We route all contact through central intake to preserve discretion and operational security. Work proceeds only on a clear basis with written engagement terms.</p>
           <div class="badges">
             <div class="badge">Restricted access</div>
             <div class="badge">Evidence-led reporting</div>
@@ -454,14 +454,14 @@
           </div>
           <div class="process">
             <div class="title"><span class="bar"></span> How it works</div>
-            <p>Initial assessment → scope & lawful basis → written engagement → investigation → report & evidential package.</p>
+            <p>Initial assessment → scope & undertaking basis → engagement → investigation → report & evidential package.</p>
           </div>
           <div class="rule"></div>
           <div class="section-title">
             <h3>Confidentiality</h3>
             <div class="rulemini"></div>
           </div>
-          <p>Enquiries are transmitted securely (HTTPS/TLS). We restrict access to enquiry data and treat it confidentially. Do not submit highly sensitive documents via the form; a secure upload link can be provided after screening.</p>
+          <p>Please do not submit highly sensitive documents via the form; a secure upload link can be provided after onboarding.</p>
         </aside>
       </div>
     </section>
@@ -561,6 +561,7 @@
       "I'm sorry, I need a proper answer to continue.",
       "Hmm, that doesn't look right. Let's try again.",
       "Please provide a valid response so I can help you.",
+       "Please answer the question more clearly.",
       "I'm afraid I can't proceed with that. Could you try again?",
       "That doesn't seem correct. Let's start this step over.",
       "Sorry about that — please type a proper answer.",
@@ -570,7 +571,7 @@
     // Questions
     const questions = [
       { q: "We invite you to give us more information here, so we may help with your confidential enquiry.\n\nWhat is your full name and title?", field: "name" },
-      { q: "Thank you, {name}. What is the best email address to reach you?", field: "email" },
+      { q: "Thank you, {name}. What is the best e-mail address to reach you?", field: "email" },
       { q: "Understood. Could you tell me the main jurisdiction this matter relates to?", field: "jurisdiction" },
       { q: "Perfect. In a few sentences, please outline what you need help with (urgency, concerns, etc.).", field: "summary" },
       { q: "If you'd prefer to be contacted by phone, please tell us the best number to reach you on. Otherwise, just say 'no', 'email only', or leave blank.", field: "phone" }
@@ -630,7 +631,7 @@
         summary: formData.summary || 'Not provided',
         phone: formData.phone || 'Email preferred',
         submittedAt: new Date().toISOString(),
-        _subject: "New Confidential Enquiry from pelecānī website"
+        _subject: "New Confidential Enquiry from Aspen Meridian website"
       };
 
       fetch('https://formspree.io/f/xvzbwael', {
