@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aspen Meridian — Private Investigations</title>
+  <meta name="description" content="Aspen Meridian is a discreet private investigations and advisory firm delivering evidence-led enquiries and defensible results for private and corporate clients." />
+  <meta name="theme-color" content="#0A3161" />
+
+  <style>
+    :root{
+      --navy:#0A3161;
+      --navy2:#081f3d;
+      --red:#B31942;
+      --bg:#F6F8FB;
+      --surface:#FFFFFF;
+      --surface2:#FAFBFD;
+      --text:#0B1220;
+      --muted:#425466;
+      --muted2:#64748B;
+      --line: rgba(10,49,97,.14);
+      --line2: rgba(10,49,97,.22);
+      --shadow: 0 18px 55px rgba(2,8,23,.10);
+      --shadow2: 0 10px 26px rgba(2,8,23,.08);
+      --radius: 18px;
+      --radius2: 16px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(10,49,97,.10), transparent 55%),
+        radial-gradient(900px 520px at 88% 0%, rgba(179,25,66,.08), transparent 60%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--bg) 35%, var(--bg) 100%);
+      line-height:1.4;
+      letter-spacing:.15px;
+    }
+    a{ color: inherit; text-decoration:none; }
+
+    .wrap{
+      max-width: 1180px;
+      margin:0 auto;
+      padding: 0 18px 70px;
+    }
+
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter: blur(10px);
+      background: rgba(246,248,251,.72);
+      border-bottom: 1px solid rgba(10,49,97,.10);
+      transition: padding .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .topbar-inner{
+      max-width: 1180px;
+      margin:0 auto;
+      padding: 18px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      transition: padding .18s ease;
+    }
+    .topbar.shrink{
+      background: rgba(246,248,251,.88);
+      box-shadow: 0 10px 24px rgba(2,8,23,.06);
+    }
+    .topbar.shrink .topbar-inner{
+      padding: 10px 18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 260px;
+    }
+
+    /* Logo now uses your image file */
+    .logoimg{
+      width:42px;
+      height:42px;
+      border-radius: 14px;
+      border:1px solid rgba(10,49,97,.18);
+      box-shadow: var(--shadow2);
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .brand h1{
+      margin:0;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: .35px;
+      color: var(--navy);
+    }
+    .brand small{
+      display:block;
+      margin-top:2px;
+      font-size: 12px;
+      color: var(--muted2);
+      letter-spacing:.25px;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlink{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(10,49,97,.14);
+      background: rgba(255,255,255,.65);
+      color: var(--navy);
+      font-size: 13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .navlink:hover{
+      transform: translateY(-1px);
+      border-color: rgba(10,49,97,.26);
+      background: rgba(255,255,255,.92);
+    }
+    .navcta{
+      padding: 10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(179,25,66,.25);
+      background: linear-gradient(180deg, rgba(179,25,66,.10), rgba(179,25,66,.06));
+      color: var(--navy);
+      font-size: 13px;
+      font-weight: 900;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+      white-space:nowrap;
+      user-select:none;
+    }
+    .navcta:hover{
+      transform: translateY(-1px);
+      border-color: rgba(179,25,66,.38);
+      box-shadow: 0 14px 28px rgba(2,8,23,.10);
+    }
+
+    /* Hero / Form Container */
+    .hero{
+      padding: 26px 0 20px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      nav{ justify-content:flex-start; }
+      .brand{ min-width: unset; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid rgba(10,49,97,.12);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .intro{
+      padding: 26px 26px 22px;
+      background:
+        radial-gradient(1000px 600px at 20% 0%, rgba(10,49,97,.08), transparent 60%),
+        radial-gradient(900px 520px at 88% 0%, rgba(179,25,66,.06), transparent 62%),
+        linear-gradient(180deg, #FFFFFF 0%, var(--surface2) 100%);
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      text-transform: uppercase;
+      letter-spacing:.8px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .dot{
+      width:9px;height:9px;border-radius:999px;
+      background: linear-gradient(180deg, var(--navy), var(--red));
+      box-shadow: 0 0 0 5px rgba(10,49,97,.10);
+    }
+    .headline{
+      margin:0 0 10px;
+      font-size: clamp(30px, 3.4vw, 44px);
+      line-height: 1.08;
+      letter-spacing: .2px;
+      color: var(--navy2);
+      font-weight: 900;
+    }
+    .subhead{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 70ch;
+    }
+    .rule{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(10,49,97,.20), transparent);
+      margin: 18px 0;
+    }
+
+    /* Conversational Form */
+    .conversational-form{
+      position:relative;
+      min-height: 520px;
+      padding: 20px 0;
+    }
+    .chat-container{
+      margin-bottom: 24px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .chat-bubble{
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 18px 18px 18px 4px;
+      font-size: 14.5px;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      color: #0B1220;
+      font-weight: 550;
+    }
+    .chat-bubble.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .chat-bubble.bot{
+      background: rgba(10,49,97,0.12);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .chat-bubble.user{
+      background: rgba(179,25,66,0.14);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+      margin-left: auto;
+    }
+
+    .input-wrapper{
+      position:relative;
+      margin-top: 12px;
+    }
+    .input-wrapper input{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid rgba(10,49,97,.22);
+      background: #FFFFFF;
+      color: var(--text);
+      padding: 14px 18px;
+      font-size: 15px;
+      outline:none;
+    }
+    .input-wrapper input:focus{
+      border-color: var(--navy);
+      box-shadow: 0 0 0 4px rgba(10,49,97,0.12);
+    }
+    .form-actions{
+      margin-top: 16px;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .next-btn{
+      flex:1;
+      padding: 14px;
+      background: var(--navy);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+    .next-btn:hover{ filter: brightness(.97); }
+    .reset-btn{
+      padding: 10px 16px;
+      background: transparent;
+      border: 1px solid rgba(10,49,97,.25);
+      color: var(--muted2);
+      border-radius: 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .reset-btn:hover{
+      background: rgba(10,49,97,0.05);
+    }
+    .success-screen{
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 1.05rem;
+      color: var(--navy2);
+    }
+    .success-screen.show{ display:block; }
+
+    .legal-confirm{
+      margin-top: 24px;
+      padding: 16px;
+      background: rgba(179,25,66,0.06);
+      border-radius: 12px;
+      border: 1px solid rgba(179,25,66,0.2);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .legal-confirm label{
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .legal-confirm input{
+      margin-top: 4px;
+      accent-color: var(--navy);
+    }
+
+    /* Side panel */
+    .side{ padding: 22px 22px 20px; }
+    .section-title h3{
+      margin:0;
+      font-size:18px;
+      font-weight: 950;
+      color: var(--navy2);
+    }
+    .rulemini{
+      height:1px;
+      margin:10px 0 14px;
+      background: linear-gradient(90deg, rgba(10,49,97,.18), transparent);
+    }
+    .side p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.55;
+    }
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin: 10px 0 14px;
+    }
+    .badge{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(10,49,97,.16);
+      background: rgba(255,255,255,.75);
+      color: var(--navy);
+      font-size: 12.5px;
+      font-weight: 850;
+    }
+    .process .title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin: 12px 0 8px;
+      font-weight: 950;
+      color: var(--navy2);
+    }
+    .process .bar{
+      width:10px;
+      height:10px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--navy), var(--red));
+    }
+
+    /* Team */
+    .section{ padding: 18px 0; }
+    .team-wrap{ padding: 22px; }
+    .team-lead{
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.55;
+    }
+    .team-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .person{
+      text-align:center;
+      transition: transform 0.25s ease;
+    }
+    .person:hover{ transform: translateY(-6px); }
+    .avatar{
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(10,49,97,0.15);
+      box-shadow: 0 8px 24px rgba(2,8,23,0.12);
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+    .avatar:hover{
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(2,8,23,0.18);
+    }
+    .meta{ margin-top: 12px; }
+    .name{
+      margin:0;
+      font-size: 15px;
+      font-weight: 900;
+      color: var(--navy2);
+    }
+    .role{
+      margin:4px 0 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    @media (max-width: 980px){
+      .team-grid{ grid-template-columns: repeat(2, 1fr); }
+      .avatar{ width: 160px; height: 160px; }
+    }
+    @media (max-width: 580px){
+      .team-grid{ grid-template-columns: 1fr; }
+      .avatar{ width: 140px; height: 140px; }
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 22px;
+      padding: 18px 0 0;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      color: var(--muted);
+    }
+    footer .legal{
+      border: 1px solid rgba(10,49,97,.12);
+      background: rgba(255,255,255,.65);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    @media (max-width: 980px){
+      footer{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Topbar -->
+  <div class="topbar" id="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img class="logoimg" src="alliancemannin.png" alt="Aspen Meridian logo" />
+        <div>
+          <h1>Aspen Meridian</h1>
+          <small>Private Investigations • Discreet • Evidence-led</small>
+        </div>
+      </div>
+
+      <nav aria-label="Top navigation">
+        <a class="navlink" href="#enquiry">Enquiry</a>
+        <a class="navlink" href="#team">Team</a>
+        <a class="navlink" href="#process">Process</a>
+        <a class="navcta" href="#enquiry">Make an enquiry</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- Enquiry -->
+    <section class="hero" id="enquiry">
+      <div class="hero-grid">
+
+        <!-- Conversational Form -->
+        <div class="card intro">
+          <div class="kicker"><span class="dot" aria-hidden="true"></span> Discreet intake • Rapid response</div>
+          <h2 class="headline">Confidential enquiries.<br/>Lawful, defensible results.</h2>
+
+          <div class="conversational-form">
+            <div class="chat-container" id="chatContainer"></div>
+
+            <div class="input-wrapper" id="inputArea">
+              <input type="text" id="userInput" placeholder="Type your answer here..." autocomplete="off" />
+            </div>
+
+            <div class="form-actions">
+              <button class="next-btn" id="nextBtn">Continue</button>
+              <button class="reset-btn" id="resetBtn">Reset form</button>
+            </div>
+
+            <!-- Legal confirmation checkbox -->
+            <div class="legal-confirm" id="legalConfirm" style="display:none;">
+              <label>
+                <input type="checkbox" id="legalAgree" />
+                I confirm that the information provided is true and accurate to the best of my knowledge, that I am legally authorised to make this enquiry on behalf of myself or the entity concerned, and that the purpose of this enquiry is lawful and does not involve any prohibited activity including (but not limited to) harassment, intimidation, unlawful surveillance, or any breach of applicable data protection or privacy laws. I understand that all communications are treated confidentially and that Aspen Meridian may decline or terminate the enquiry if it appears to involve unlawful activity.
+              </label>
+            </div>
+
+            <div class="success-screen" id="successScreen">
+              <p style="font-size:1.4rem; font-weight:900; color:var(--navy2);">Thank you.</p>
+              <p style="margin-top:16px; color:var(--muted);">
+                Your message has been encrypted for your security<br/>
+                and we will get back to you shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side panel -->
+        <aside class="card side" id="process" aria-label="Service overview">
+          <div class="section-title">
+            <h3>Discretion by design</h3>
+            <div class="rulemini"></div>
+          </div>
+          <p>
+            We route all contact through central intake to preserve discretion and operational security.
+            Work proceeds only on a clear basis with written engagement terms.
+          </p>
+
+          <div class="badges">
+            <div class="badge">Restricted access</div>
+            <div class="badge">Evidence-led reporting</div>
+            <div class="badge">Clear audit trail</div>
+            <div class="badge">By engagement only</div>
+          </div>
+
+          <div class="process">
+            <div class="title"><span class="bar"></span> How it works</div>
+            <p>Initial assessment → scope &amp; undertaking basis → engagement → investigation → report &amp; evidential package.</p>
+          </div>
+
+          <div class="rule"></div>
+
+          <div class="section-title">
+            <h3>Confidentiality</h3>
+            <div class="rulemini"></div>
+          </div>
+          <p>
+            Please do not submit highly sensitive documents via the form; a secure upload link can be provided after onboarding.
+          </p>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- Team photos -->
+    <section class="section" id="team">
+      <div class="card team-wrap">
+        <div class="section-title">
+          <h3>Team</h3>
+          <div class="rulemini"></div>
+        </div>
+
+        <p class="team-lead">
+          The team below supports casework across field operations and open-source intelligence. All requests are routed through central intake.
+        </p>
+
+        <div class="team-grid">
+          <div class="person">
+            <img class="avatar" src="david.jpg" alt="David — Case Director" loading="lazy" />
+            <div class="meta">
+              <p class="name">David</p>
+              <p class="role">Case Director</p>
+            </div>
+          </div>
+
+          <div class="person">
+            <img class="
